@@ -33,7 +33,16 @@ function vegenere(plainText, key)
 
 		for(var i = 0; i < plainText.length; i++)
 		{
-			cipherText += vegenereSquare[getRow(key[i])].charAt(getColumn(plainText[i]));
+			/* sat evening check that charcode is uncode for a-z small and A-Z caps
+			so we can ignore spaces and symbols */
+			if(plainText[i] != " ")
+			{
+			    cipherText += vegenereSquare[getRow(key[i])].charAt(getColumn(plainText[i]));
+			}
+			else
+			{
+				cipherText += " ";
+			}
 			
 		}
 
