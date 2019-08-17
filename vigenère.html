@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>title</title>
+    </head>
+
+    <body>
+
+	<script>
+		var vegenereSquare = ["abcdefghijklmnopqrstuvwxyz",
+			"bcdefghijklmnopqrstuvwxyza",
+			"cdefghijklmnopqrstuvwxyzab",
+			"defghijklmnopqrstuvwxyzabc",
+			"efghijklmnopqrstuvwxyzabcd",
+			"fghijklmnopqrstuvwxyzabcde",
+			"ghijklmnopqrstuvwxyzabcdef",
+			"hijklmnopqrstuvwxyzabcdefg",
+			"ijklmnopqrstuvwxyzabcdefgh",
+			"jklmnopqrstuvwxyzabcdefghi",
+			"klmnopqrstuvwxyzabcdefghij",
+			"lmnopqrstuvwxyzabcdefghijk",
+			"mnopqrstuvwxyzabcdefghijkl",
+			"nopqrstuvwxyzabcdefghijklm",
+		 	"nopqrstuvwxyzabcdefghijklm",
+			"opqrstuvwxyzabcdefghijklmn",
+			"pqrstuvwxyzabcdefghijklmno",
+			"qrstuvwxyzabcdefghijklmnop",
+			"rstuvwxyzabcdefghijklmnopq",
+			"stuvwxyzabcdefghijklmnopqr",
+			"tuvwxyzabcdefghijklmnopqrs",
+			"uvwxyzabcdefghijklmnopqrst",
+			"vwxyzabcdefghijklmnopqrstu",
+			"wxyzabcdefghijklmnopqrstuv",
+			"xyzabcdefghijklmnopqrstuvw",
+			"zabcdefghijklmnopqrstuvwxy"];
+
+		var plainText = "hello";
+		var key = "keyke";
+		var cipherText = [];
+
+		for(var i = 0; i < plainText.length; i++)
+		{
+			
+		}
+
+		document.write(getRow("a"));
+		document.write("---");
+		document.write(getColumn("h"));
+
+		function getRow(character)
+		{
+			var row = 0;
+
+			for(var i = 0; i < vegenereSquare.length; i++)
+			{
+				if(vegenereSquare[i].charAt(0) == character)
+				{
+					row = i;
+					break;
+				}
+			}
+			
+			return row;
+		}
+
+		function getColumn(character)
+		{
+			return vegenereSquare[0].indexOf(character);
+		}
+
+		</script>
+  
+    </body>
+</html>
