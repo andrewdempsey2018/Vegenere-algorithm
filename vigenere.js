@@ -3,7 +3,7 @@ This script encodes and decodes strings based on the famous Vugenere cipher */
 
 /* Hard code two Vegenere squares that are used to replace letters in both cipher text and plain text */
 
-/* future versions of this script would idealy have these squares generated on the fly
+/* Future versions of this script would idealy have these squares generated on the fly
 this would allow more complex and secure encryption */
 
 var vegenereSquareLowerCase = ["abcdefghijklmnopqrstuvwxyz",
