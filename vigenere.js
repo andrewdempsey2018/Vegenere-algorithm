@@ -1,6 +1,6 @@
 function vegenere(plainText, key)
 {
-	var vegenereSquare = ["abcdefghijklmnopqrstuvwxyz",
+	var vegenereSquareLowerCase = ["abcdefghijklmnopqrstuvwxyz",
 		"bcdefghijklmnopqrstuvwxyza",
 		"cdefghijklmnopqrstuvwxyzab",
 		"defghijklmnopqrstuvwxyzabc",
@@ -27,6 +27,33 @@ function vegenere(plainText, key)
 		"yzabcdefghijklmnopqrstuvwx",
 		"zabcdefghijklmnopqrstuvwxy"];
 
+	var vegenereSquareUpperCase = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+		"BCDEFGHIJKLMNOPQRSTUVWXYZA",
+		"CDEFGHIJKLMNOPQRSTUVWXYZAB",
+		"DEFGHIJKLMNOPQRSTUVWXYZABC",
+		"EFGHIJKLMNOPQRSTUVWXYZABCD",
+		"FGHIJKLMNOPQRSTUVWXYZABCDE",
+		"GHIJKLMNOPQRSTUVWXYZABCDEF",
+		"HIJKLMNOPQRSTUVWXYZABCDEFG",
+		"IJKLMNOPQRSTUVWXYZABCDEFGH",
+		"JKLMNOPQRSTUVWXYZABCDEFGHI",
+		"KLMNOPQRSTUVWXYZABCDEFGHIJ",
+		"LMNOPQRSTUVWXYZABCDEFGHIJK",
+		"MNOPQRSTUVWXYZABCDEFGHIJKL",
+		"NOPQRSTUVWXYZABCDEFGHIJKLM",
+		"OPQRSTUVWXYZABCDEFGHIJKLMN",
+		"PQRSTUVWXYZABCDEFGHIJKLMNO",
+		"QRSTUVWXYZABCDEFGHIJKLMNOP",
+		"RSTUVWXYZABCDEFGHIJKLMNOPQ",
+		"STUVWXYZABCDEFGHIJKLMNOPQR",
+		"TUVWXYZABCDEFGHIJKLMNOPQRS",
+		"UVWXYZABCDEFGHIJKLMNOPQRST",
+		"VWXYZABCDEFGHIJKLMNOPQRSTU",
+		"WXYZABCDEFGHIJKLMNOPQRSTUV",
+		"XYZABCDEFGHIJKLMNOPQRSTUVW",
+		"YZABCDEFGHIJKLMNOPQRSTUVWX",
+		"ZABCDEFGHIJKLMNOPQRSTUVWXY"];
+
 		var cipherText = "";
 
 		key = processKey(key);
@@ -35,13 +62,17 @@ function vegenere(plainText, key)
 		{
 			/* sat evening check that charcode is uncode for a-z small and A-Z caps
 			so we can ignore spaces and symbols */
-			if(plainText[i] != " ")
+			if(plainText.charCodeAt(i) >= 97 && plainText.charCodeAt(i) <= 122)
 			{
-			    cipherText += vegenereSquare[getRow(key[i])].charAt(getColumn(plainText[i]));
+			    cipherText += vegenereSquareLowerCase[getRow(key[i])].charAt(getColumn(plainText[i]));
+			}
+			else if(plainText.charCodeAt(i) >= 65 && plainText.charCodeAt(i) <= 90)
+			{
+				cipherText += vegenereSquareUpperCase[getRow(key[i])].charAt(getColumn(plainText[i]));
 			}
 			else
 			{
-				cipherText += " ";
+				cipherText += plainText[i];
 			}
 			
 		}
@@ -66,10 +97,12 @@ function vegenere(plainText, key)
 		function getRow(character)
 		{
 			var row = 0;
+		
+			character = character.toLowerCase();
 
-			for(var i = 0; i < vegenereSquare.length; i++)
+			for(var i = 0; i < vegenereSquareLowerCase.length; i++)
 			{
-				if(vegenereSquare[i].charAt(0) == character)
+				if(vegenereSquareLowerCase[i].charAt(0) == character)
 				{
 					row = i;
 					break;
@@ -81,7 +114,9 @@ function vegenere(plainText, key)
 
 		function getColumn(character)
 		{
-			return vegenereSquare[0].indexOf(character);
+			character = character.toLowerCase();
+
+			return vegenereSquareLowerCase[0].indexOf(character);
 		}
 
 		return cipherText;
