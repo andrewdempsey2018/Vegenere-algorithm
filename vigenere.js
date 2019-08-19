@@ -1,3 +1,11 @@
+/* Vigenere.js by Andrew Dempsey - The Open University TM470 19B
+This script encodes and decodes strings based on the famous Vugenere cipher */
+
+/* Hard code two Vegenere squares that are used to replace letters in both cipher text and plain text */
+
+/* future versions of this script would idealy have these squares generated on the fly
+this would allow more complex and secure encryption */
+
 var vegenereSquareLowerCase = ["abcdefghijklmnopqrstuvwxyz",
 	"bcdefghijklmnopqrstuvwxyza",
 	"cdefghijklmnopqrstuvwxyzab",
@@ -52,6 +60,7 @@ var vegenereSquareUpperCase = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 	"YZABCDEFGHIJKLMNOPQRSTUVWX",
 	"ZABCDEFGHIJKLMNOPQRSTUVWXY"];
 
+/* takes the Vigenere key and duplicates it so that its length matches that of the text to be encoded/decoded */
 function processKey(key, targetString)
 {
 	while(key.length < targetString.length)
@@ -69,6 +78,7 @@ function processKey(key, targetString)
 	return key;
 }
 
+/* returns an integer denoting the row where the argument is the first letter in the string */
 function getRow(character)
 {
 	var row = 0;
@@ -87,20 +97,15 @@ function getRow(character)
 	return row;
 }
 
-function getColumnEncode(character)
-{
-	character = character.toLowerCase();
-
-	return vegenereSquareLowerCase[0].indexOf(character);
-}
-
-function getColumnDecode(character, row)
+/* returns an integer denoting the column where the character is found in the given row */
+function getColumn(character, row)
 {
 	character = character.toLowerCase();
 
 	return vegenereSquareLowerCase[row].indexOf(character);
 }
 
+/* takes plain text and a key and encodes the text using the Vegenere squares */
 function vegenereEncode(plainText, key)
 {
     var cipherText = "";
@@ -111,11 +116,11 @@ function vegenereEncode(plainText, key)
     {
 		if(plainText.charCodeAt(i) >= 97 && plainText.charCodeAt(i) <= 122)
 		{
-		    cipherText += vegenereSquareLowerCase[getRow(key[i])].charAt(getColumnEncode(plainText[i]));
+		    cipherText += vegenereSquareLowerCase[getRow(key[i])].charAt(getColumn(plainText[i], 0));
 		}
 		else if(plainText.charCodeAt(i) >= 65 && plainText.charCodeAt(i) <= 90)
 		{
-			cipherText += vegenereSquareUpperCase[getRow(key[i])].charAt(getColumnEncode(plainText[i]));
+			cipherText += vegenereSquareUpperCase[getRow(key[i])].charAt(getColumn(plainText[i], 0));
 		}
 		else
 		{
@@ -127,6 +132,7 @@ function vegenereEncode(plainText, key)
 	return cipherText;
 }
 
+/* takes cipher text and a key and decodes the text using the Vegenere squares */
 function vegenereDecode(cipherText, key)
 {
     var plainText = "";
@@ -137,17 +143,15 @@ function vegenereDecode(cipherText, key)
 	{
 		if(cipherText.charCodeAt(i) >= 97 && cipherText.charCodeAt(i) <= 122)
 		{
-		    //plainText += vegenereSquareLowerCase[getRow(key[i])].charAt(getColumnEncode(cipherText[i]));
-			
-			var rowA = getRow(key[i]);
-			var colA = getColumnDecode(cipherText[i], rowA);
+		    var rowA = getRow(key[i]);
+			var colA = getColumn(cipherText[i], rowA);
 
 			plainText += vegenereSquareLowerCase[0].charAt(colA);
 		}
 		else if(cipherText.charCodeAt(i) >= 65 && cipherText.charCodeAt(i) <= 90)
 		{
 			var rowA = getRow(key[i]);
-			var colA = getColumnDecode(cipherText[i], rowA);
+			var colA = getColumn(cipherText[i], rowA);
 
 			plainText += vegenereSquareUpperCase[0].charAt(colA);
 		}
